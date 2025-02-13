@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:GuitarStore.ViewModels"
+             x:Class="GuitarStore.Views.GuitarPage"
+             Title="Inventory">
+
+    
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="ADD NEW" 
+             Clicked="OnAddGuitarClicked" 
+             Order="Primary"/>
+    </ContentPage.ToolbarItems>
+
+
+    <CollectionView x:Name="GuitarCollectionView"
+                    ItemsSource="{Binding Guitars}" 
+                    SelectionMode="Single"
+                    SelectionChanged="OnGuitarSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                <VerticalStackLayout BackgroundColor="GhostWhite">
+                     <Grid Padding="10">
+                          <Grid.ColumnDefinitions>
+                               <ColumnDefinition Width="Auto" />
+                               <ColumnDefinition Width="*" />
+                          </Grid.ColumnDefinitions>
+                    <VerticalStackLayout>
+                                <Image Grid.Column="0" WidthRequest="220" HeightRequest="220"
+                                       Source="{Binding PhotoPath}" Aspect="AspectFill"/>
+                        
+                    </VerticalStackLayout>
+                    <StackLayout Grid.Column="1" Padding="10,0">
+                        
+                            <HorizontalStackLayout Spacing="9">
+                                <Label  Text="{Binding Make}" FontSize="40"/>
+                                <Label  Text="{Binding Model}" FontSize="40"/>
+                            </HorizontalStackLayout>
+                            <Label  Text="{Binding Price, StringFormat='${0:F2}'}" FontSize="30"/>
+                    </StackLayout>
+                         
+                </Grid>
+                    <BoxView HeightRequest="1" BackgroundColor="Gray" HorizontalOptions="Fill" />
+                </VerticalStackLayout>
+            </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    
+
+</ContentPage>
