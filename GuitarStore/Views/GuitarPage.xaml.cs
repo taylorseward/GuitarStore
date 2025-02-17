@@ -40,7 +40,7 @@ public partial class GuitarPage : ContentPage
         {
             case "Edit":
                 // Navigate to AddGuitarPage for editing
-                await Shell.Current.GoToAsync($"///AddGuitarPage", true, new Dictionary<string, object>
+                await Shell.Current.GoToAsync($"AddGuitarPage", true, new Dictionary<string, object>
                 {
                     { "guitarId", selectedGuitar.Id }
                 });
@@ -60,10 +60,13 @@ public partial class GuitarPage : ContentPage
     // Clear selection to allow re-selecting the same item
     ((CollectionView)sender).SelectedItem = null;
     }
+    private void OnSortChanged(object sender, EventArgs e)
+    {
+        _viewModel.SortGuitars();
+    }
 
     public async void OnAddGuitarClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("///AddGuitarPage");
-
+        await Shell.Current.GoToAsync("AddGuitarPage");
     }
 }

@@ -12,7 +12,7 @@ using GuitarStore.Services;
 
 namespace GuitarStore.ViewModels
 {
-    public class AddGuitarViewModel : BaseViewModel
+    public class AddAmpViewModel : BaseViewModel
     {
         private readonly DatabaseService _databaseService;
 
@@ -21,72 +21,55 @@ namespace GuitarStore.ViewModels
         public string Model { get; set; }
         public double Price { get; set; }
 
-        private string _selectedGuitarType;
-        public string SelectedGuitarType
+        private string _selectedAmpType;
+        public string SelectedAmpType
         {
-            get => _selectedGuitarType;
+            get => _selectedAmpType;
             set
             {
-                if (_selectedGuitarType != value)
+                if (_selectedAmpType != value)
                 {
-                    _selectedGuitarType = value;
+                    _selectedAmpType = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public ObservableCollection<string> GuitarTypes { get; } = new ObservableCollection<string>
+        public ObservableCollection<string> AmpTypes { get; } = new ObservableCollection<string>
         {
-            "Electric",
-            "Acoustic"
+            "Head",
+            "Cabinet",
+            "Combo"
         };
-        private string _numberOfStrings;
-        public string NumberOfStrings
-        {
-            get => _numberOfStrings;
-            set
-            {
-                if (_numberOfStrings != value)
-                {
-                    _numberOfStrings = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public ObservableCollection<string> StringNumberPicker { get; } = new ObservableCollection<string>
-        {
-            "6",
-            "7",
-            "8"
-        };
+        
+        
 
 
         public ICommand SaveCommand { get; }
 
-        public AddGuitarViewModel(DatabaseService databaseService)
+        public AddAmpViewModel(DatabaseService databaseService)
         {
             _databaseService = databaseService;
-            SaveCommand = new Command(async () => await SaveGuitarAsync());
+            SaveCommand = new Command(async () => await SaveAmpAsync());
         }
 
-        private async Task SaveGuitarAsync()
+        private async Task SaveAmpAsync()
         {
             if (string.IsNullOrWhiteSpace(Make) || string.IsNullOrWhiteSpace(Model))
             {
                 await Shell.Current.DisplayAlert("Error", "Make and Model are required.", "OK");
                 return;
             }
-            var newGuitar = new Guitar
+            var newAmp = new Amp
             {
                 PhotoPath = PhotoPath,
                 Make = Make,
                 Model = Model,
-                GuitarType = SelectedGuitarType,
-                NumberOfStrings = NumberOfStrings,
+                AmpType = SelectedAmpType,
                 Price = Price
             };
 
-            await _databaseService.AddGuitarAsync(newGuitar);
+            await _databaseService.AddAmpAsync(newAmp);
 
             await Shell.Current.GoToAsync("..");
         }
@@ -99,5 +82,5 @@ namespace GuitarStore.ViewModels
         //}
 
     }
-    
+
 }

@@ -9,14 +9,29 @@
     Title="GuitarStore">
 
 
+    <ShellContent 
+        Title="Inventory"
+        Route="InventoryPage" 
+        ContentTemplate="{DataTemplate views:InventoryPage}" />
 
     <ShellContent
-        Title="Home"
+        Title="Guitars"
         ContentTemplate="{DataTemplate views:GuitarPage}"
         Route="GuitarPage" />
 
     <ShellContent 
-        Title="Add Guitar"
-        Route="AddGuitarPage" 
-        ContentTemplate="{DataTemplate views:AddGuitarPage}" />
+        Title="Amps" 
+        Route="AmpPage" 
+        ContentTemplate="{DataTemplate views:AmpPage}" />
+    
+    <ShellContent 
+        Title="Pedals" 
+        Route="PedalPage" 
+        ContentTemplate="{DataTemplate views:PedalPage}" />
+    
+    <ShellContent 
+        Title="Accessories" 
+        Route="AccessoryPage" 
+        ContentTemplate="{DataTemplate views:AccessoryPage}" />
+    
 </Shell>

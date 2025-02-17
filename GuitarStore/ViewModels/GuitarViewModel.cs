@@ -17,6 +17,44 @@ namespace GuitarStore.ViewModels
         private readonly DatabaseService _databaseService;
 
         public ObservableCollection<Guitar> Guitars { get; set; } = new();
+        public ObservableCollection<string> SortOptions { get; } = new()
+        {
+            "Make (A-Z)",
+            "Make (Z-A)",
+            "Price (Low-High)",
+            "Price (High-Low)",
+            "Recently Added"
+        };
+
+        private string _selectedSortOption;
+        public string SelectedSortOption
+        {
+            get => _selectedSortOption;
+            set
+            {
+                if (_selectedSortOption != value)
+                {
+                    _selectedSortOption = value;
+                    OnPropertyChanged();
+                    SortGuitars();
+                }
+            }
+        }
+        public ObservableCollection<Guitar> SearchedGuitars { get; } = new();
+        private string _searchQuery;
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                if (_searchQuery != value)
+                {
+                    _searchQuery = value;
+                    OnPropertyChanged();
+                    SearchGuitars();
+                }
+            }
+        }
 
         public IAsyncRelayCommand LoadGuitarsCommand { get; }
         public IAsyncRelayCommand<Guitar> DeleteGuitarCommand { get; }
@@ -58,6 +96,63 @@ namespace GuitarStore.ViewModels
                 {
                     Guitars.Add(guitar);
                 }
+
+                SearchedGuitars.Clear();
+                foreach (var guitar in guitars)
+                {
+                    SearchedGuitars.Add(guitar);
+                }
+            }
+        }
+
+        public void SortGuitars()
+        {
+            var sortedList = Guitars.ToList();
+
+            switch (SelectedSortOption)
+            {
+                case "Make (A-Z)":
+                    sortedList = sortedList.OrderBy(p => p.Make).ToList();
+                    break;
+                case "Make (Z-A)":
+                    sortedList = sortedList.OrderByDescending(p => p.Make).ToList();
+                    break;
+                case "Price (Low-High)":
+                    sortedList = sortedList.OrderBy(p => p.Price).ToList();
+                    break;
+                case "Price (High-Low)":
+                    sortedList = sortedList.OrderByDescending(p => p.Price).ToList();
+                    break;
+                case "Recently Added":
+                    sortedList = sortedList.OrderByDescending(p => p.Id).ToList();
+                    break;
+            }
+
+            Guitars.Clear();
+            foreach (var guitar in sortedList)
+            {
+                Guitars.Add(guitar);
+            }
+
+            SearchGuitars();
+        }
+
+        private void SearchGuitars()
+        {
+            SearchedGuitars.Clear();
+
+            var searched = string.IsNullOrWhiteSpace(SearchQuery)
+                ? Guitars
+                : Guitars.Where
+                (a =>
+                a.Make.ToLower().Contains(SearchQuery.ToLower()) ||
+                a.Model.ToLower().Contains(SearchQuery.ToLower()) ||
+                a.GuitarType.ToLower().Contains(SearchQuery.ToLower())
+                );
+
+            foreach (var guitar in searched)
+            {
+                SearchedGuitars.Add(guitar);
             }
         }
 

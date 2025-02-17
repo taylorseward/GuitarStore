@@ -1,5 +1,6 @@
 using GuitarStore.Models;
 using GuitarStore.Services;
+using GuitarStore.ViewModels;
 using Microsoft.Maui.Media;
 using System.Threading.Tasks;
 
@@ -31,7 +32,9 @@ public partial class AddGuitarPage : ContentPage
 	{
 		InitializeComponent();
         _databaseService = databaseService;
-	}
+        BindingContext = new AddGuitarViewModel(_databaseService);
+
+    }
 
     protected override async void OnAppearing()
     {
@@ -49,10 +52,14 @@ public partial class AddGuitarPage : ContentPage
         if (guitar != null)
         {
             Console.WriteLine($"DEBUG: Loaded Guitar - Make: {guitar.Make}, Model: {guitar.Model}, Price: {guitar.Price}");
+            var viewModel = (AddGuitarViewModel)BindingContext;
 
             makeEntry.Text = guitar.Make;
             modelEntry.Text = guitar.Model;
             priceEntry.Text = guitar.Price.ToString();
+            viewModel.SelectedGuitarType = guitar.GuitarType;
+            viewModel.NumberOfStrings = guitar.NumberOfStrings;
+
             if (!string.IsNullOrEmpty(guitar.PhotoPath))
             {
                 guitarPhoto.Source = ImageSource.FromFile(guitar.PhotoPath);
@@ -69,11 +76,14 @@ public partial class AddGuitarPage : ContentPage
     {
         if (double.TryParse(priceEntry.Text, out double price))
         {
+            var viewModel = (AddGuitarViewModel)BindingContext;
             var guitar = new Guitar
             {
                 Id = GuitarId,
                 Make = makeEntry.Text,
                 Model = modelEntry.Text,
+                GuitarType = viewModel.SelectedGuitarType,
+                NumberOfStrings = viewModel.NumberOfStrings,
                 Price = price,
                 PhotoPath = _photoFile?.FullPath
             };
@@ -90,7 +100,7 @@ public partial class AddGuitarPage : ContentPage
                 await DisplayAlert("Success", "Guitar updated!", "OK");
             }
 
-            await Shell.Current.GoToAsync("GuitarPage");
+            await Shell.Current.GoToAsync("..");
         }
         else
         {
@@ -120,6 +130,6 @@ public partial class AddGuitarPage : ContentPage
 
     private async void OnBackClicked (object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("GuitarPage");
+        await Shell.Current.GoToAsync("..");
     }
 }

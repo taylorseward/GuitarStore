@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:GuitarStore.ViewModels"
+             x:Class="GuitarStore.Views.AccessoryPage"
+             Title="Accessories">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="ADD NEW" 
+            Clicked="OnAddAccessoryClicked" 
+            Order="Primary"/>
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout Padding="10">
+            <Grid ColumnDefinitions="*,Auto,*">
+                <Border Padding="5"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 20, 20, 20, 20">
+                    <SearchBar 
+                        Placeholder="Search"
+                        Text="{Binding SearchQuery, Mode=TwoWay}"
+                        Grid.Column="0"
+                        HorizontalOptions="Start"/>
+                </Border>
+                <Label Text="Sort By"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        Grid.Column="1"
+                        Margin="10,0"/>
+                <Border Padding="5"
+                        Grid.Column="2"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 20, 20, 20, 20">
+
+                    <Picker 
+                        ItemsSource="{Binding SortOptions}"
+                        SelectedItem="{Binding SelectedSortOption, Mode=TwoWay}"
+                        Margin="0,0,0,10"
+                        SelectedIndexChanged="OnSortChanged"
+                        HorizontalOptions="Fill"
+                        Grid.Column="2"/>
+                </Border>
+            </Grid>
+            <CollectionView x:Name="AccessoryCollectionView"
+        ItemsSource="{Binding SearchedAccessories}" 
+        SelectionMode="Single"
+        SelectionChanged="OnAccessorySelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout BackgroundColor="GhostWhite">
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" WidthRequest="220" HeightRequest="220"
+                           Source="{Binding PhotoPath}" Aspect="AspectFill"/>
+
+
+                                <StackLayout Grid.Column="1" Padding="10,0">
+
+                                    <HorizontalStackLayout Spacing="9">
+                                        <Label  Text="{Binding Make}" FontSize="40"/>
+                                        <Label  Text="{Binding Model}" FontSize="40"/>
+                                    </HorizontalStackLayout>
+                                    <!--<Label  Text="{Binding AccessoryType}" FontSize="30"/>-->
+                                    <Label  Text="{Binding Price, StringFormat='${0:F2}'}" FontSize="30"/>
+                                </StackLayout>
+
+                            </Grid>
+                            <BoxView HeightRequest="1" BackgroundColor="Gray" HorizontalOptions="Fill" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

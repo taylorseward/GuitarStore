@@ -12,7 +12,7 @@ using GuitarStore.Services;
 
 namespace GuitarStore.ViewModels
 {
-    public class AddGuitarViewModel : BaseViewModel
+    public class AddPedalViewModel : BaseViewModel
     {
         private readonly DatabaseService _databaseService;
 
@@ -21,72 +21,65 @@ namespace GuitarStore.ViewModels
         public string Model { get; set; }
         public double Price { get; set; }
 
-        private string _selectedGuitarType;
-        public string SelectedGuitarType
+        private string _selectedPedalType;
+        public string SelectedPedalType
         {
-            get => _selectedGuitarType;
+            get => _selectedPedalType;
             set
             {
-                if (_selectedGuitarType != value)
+                if (_selectedPedalType != value)
                 {
-                    _selectedGuitarType = value;
+                    _selectedPedalType = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public ObservableCollection<string> GuitarTypes { get; } = new ObservableCollection<string>
+        public ObservableCollection<string> PedalTypes { get; } = new ObservableCollection<string>
         {
-            "Electric",
-            "Acoustic"
+            "Distortion & Overdrive",
+            "Multi Effects",
+            "Chorus",
+            "Phaser",
+            "Flanger",
+            "Wah",
+            "Reverb",
+            "Delay",
+            "Tremolo",
+            "Compressor & EQ",
+            "Harmony",
+            "Looper",
+            "Volume"
         };
-        private string _numberOfStrings;
-        public string NumberOfStrings
-        {
-            get => _numberOfStrings;
-            set
-            {
-                if (_numberOfStrings != value)
-                {
-                    _numberOfStrings = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public ObservableCollection<string> StringNumberPicker { get; } = new ObservableCollection<string>
-        {
-            "6",
-            "7",
-            "8"
-        };
+
+
 
 
         public ICommand SaveCommand { get; }
 
-        public AddGuitarViewModel(DatabaseService databaseService)
+        public AddPedalViewModel(DatabaseService databaseService)
         {
             _databaseService = databaseService;
-            SaveCommand = new Command(async () => await SaveGuitarAsync());
+            SaveCommand = new Command(async () => await SavePedalAsync());
         }
 
-        private async Task SaveGuitarAsync()
+        private async Task SavePedalAsync()
         {
             if (string.IsNullOrWhiteSpace(Make) || string.IsNullOrWhiteSpace(Model))
             {
                 await Shell.Current.DisplayAlert("Error", "Make and Model are required.", "OK");
                 return;
             }
-            var newGuitar = new Guitar
+            var newPedal = new Pedal
             {
                 PhotoPath = PhotoPath,
                 Make = Make,
                 Model = Model,
-                GuitarType = SelectedGuitarType,
-                NumberOfStrings = NumberOfStrings,
+                PedalType = SelectedPedalType,
                 Price = Price
             };
 
-            await _databaseService.AddGuitarAsync(newGuitar);
+            await _databaseService.AddPedalAsync(newPedal);
 
             await Shell.Current.GoToAsync("..");
         }
@@ -99,5 +92,5 @@ namespace GuitarStore.ViewModels
         //}
 
     }
-    
+
 }

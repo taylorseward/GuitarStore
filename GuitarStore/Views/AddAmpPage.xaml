@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:GuitarStore.ViewModels"
+             x:Class="GuitarStore.Views.AddAmpPage"
+             Title="Add Amp">
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="15" BackgroundColor="GhostWhite" >
+            <Image x:Name="ampPhoto" 
+           HeightRequest="450" 
+           WidthRequest="450" 
+           BackgroundColor="LightGray" />
+            <Button Text="Add Photo" 
+            Clicked="OnAddPhotoClicked"
+            WidthRequest="450" 
+            BackgroundColor="CornflowerBlue" 
+            FontSize="20" />
+            <Entry x:Name="makeEntry" 
+           Placeholder="Make" 
+           WidthRequest="450"
+           HorizontalTextAlignment="Center" 
+           FontSize="20" />
+            <Entry x:Name="modelEntry" 
+           Placeholder="Model" 
+           WidthRequest="450" 
+           HorizontalTextAlignment="Center" 
+           FontSize="20"/>
+            
+                <Picker x:Name="ampTypePicker"
+            Title="Amp Type"
+            ItemsSource="{Binding AmpTypes}"
+            SelectedItem="{Binding SelectedAmpType, Mode=TwoWay}"
+            FontSize="20"
+            WidthRequest="450"
+            HorizontalTextAlignment="Center"/>
+                
+            
+            <Entry x:Name="priceEntry"
+           Placeholder="Price" 
+           Keyboard="Numeric"
+           WidthRequest="450" 
+           HorizontalTextAlignment="Center" 
+           FontSize="20"/>
+            <Button Text="Save" 
+            Clicked="OnSaveClicked" 
+            WidthRequest="450" 
+            BackgroundColor="CornflowerBlue" 
+            FontSize="20"/>
+            <Button Text="Go Back"
+            Clicked="OnBackClicked" 
+            WidthRequest="450" 
+            BackgroundColor="CornflowerBlue" 
+            FontSize="20"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

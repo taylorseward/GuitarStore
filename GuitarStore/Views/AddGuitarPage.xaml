@@ -3,19 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:GuitarStore.ViewModels"
              x:Class="GuitarStore.Views.AddGuitarPage"
-             Title="Enter Instrument Details">
+             Title="Enter Guitar">
     
 
 
     <ScrollView>
     <VerticalStackLayout Padding="10" Spacing="15" BackgroundColor="GhostWhite" >
-        <Image x:Name="guitarPhoto" HeightRequest="450" WidthRequest="450" BackgroundColor="LightGray" />
-        <Button Text="Add Photo" Clicked="OnAddPhotoClicked" WidthRequest="450" BackgroundColor="CornflowerBlue" FontSize="20" />
-        <Entry x:Name="makeEntry" Placeholder="Make" WidthRequest="450" HorizontalTextAlignment="Center" FontSize="20" />
-            <Entry x:Name="modelEntry" Placeholder="Model" WidthRequest="450" HorizontalTextAlignment="Center" FontSize="20"/>
-            <Entry x:Name="priceEntry" Placeholder="Price" Keyboard="Numeric" WidthRequest="450" HorizontalTextAlignment="Center" FontSize="20"/>
-            <Button Text="Save" Clicked="OnSaveClicked" WidthRequest="450" BackgroundColor="CornflowerBlue" FontSize="20"/>
-            <Button Text="Go Back" Clicked="OnBackClicked" WidthRequest="450" BackgroundColor="CornflowerBlue" FontSize="20"/>
+        <Image x:Name="guitarPhoto" 
+               HeightRequest="450" 
+               WidthRequest="450" 
+               BackgroundColor="LightGray" />
+        <Button Text="Add Photo" 
+                Clicked="OnAddPhotoClicked"
+                WidthRequest="450" 
+                BackgroundColor="CornflowerBlue" 
+                FontSize="20" />
+        <Entry x:Name="makeEntry" 
+               Placeholder="Make" 
+               WidthRequest="450"
+               HorizontalTextAlignment="Center" 
+               FontSize="20" />
+        <Entry x:Name="modelEntry" 
+               Placeholder="Model" 
+               WidthRequest="450" 
+               HorizontalTextAlignment="Center" 
+               FontSize="20"/>
+            <HorizontalStackLayout HorizontalOptions="Center">
+            <Picker x:Name="guitarTypePicker"
+                Title="Guitar Type"
+                ItemsSource="{Binding GuitarTypes}"
+                SelectedItem="{Binding SelectedGuitarType, Mode=TwoWay}"
+                FontSize="20"
+                WidthRequest="225"
+                HorizontalTextAlignment="Center"/>
+            <Picker x:Name="stringsPicker"
+                Title="Number Of Strings"
+                ItemsSource="{Binding StringNumberPicker}"
+                SelectedItem="{Binding NumberOfStrings, Mode=TwoWay}"
+                FontSize="20"
+                WidthRequest="225"
+                HorizontalTextAlignment="Center"/>
+            </HorizontalStackLayout>
+            <Entry x:Name="priceEntry"
+               Placeholder="Price" 
+               Keyboard="Numeric"
+               WidthRequest="450" 
+               HorizontalTextAlignment="Center" 
+               FontSize="20"/>
+        <Button Text="Save" 
+                Clicked="OnSaveClicked" 
+                WidthRequest="450" 
+                BackgroundColor="CornflowerBlue" 
+                FontSize="20"/>
+        <Button Text="Go Back"
+                Clicked="OnBackClicked" 
+                WidthRequest="450" 
+                BackgroundColor="CornflowerBlue" 
+                FontSize="20"/>
     </VerticalStackLayout>
     </ScrollView>
 

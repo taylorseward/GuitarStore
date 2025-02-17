@@ -20,12 +20,26 @@ namespace GuitarStore
                 });
 
             builder.Services.AddSingleton<DatabaseService>();
-            builder.Services.AddSingleton<GuitarViewModel>();
+            builder.Services.AddTransient<GuitarViewModel>();
             builder.Services.AddTransient<GuitarPage>();
             builder.Services.AddTransient<AddGuitarPage>();
-            builder.Services.AddSingleton<AddGuitarViewModel>();
+            builder.Services.AddTransient<AddGuitarViewModel>();
+            builder.Services.AddTransient<AmpViewModel>();
+            builder.Services.AddTransient<AmpPage>();
+            builder.Services.AddTransient<AddAmpPage>();
+            builder.Services.AddTransient<AddAmpViewModel>();
+            builder.Services.AddTransient<PedalViewModel>();
+            builder.Services.AddTransient<PedalPage>();
+            builder.Services.AddTransient<AddPedalPage>();
+            builder.Services.AddTransient<AddPedalViewModel>();
+            builder.Services.AddTransient<AccessoryViewModel>();
+            builder.Services.AddTransient<AccessoryPage>();
+            builder.Services.AddTransient<AddAccessoryPage>();
+            builder.Services.AddTransient<AddAccessoryViewModel>();
+            builder.Services.AddTransient<ProductViewModel>();
+            builder.Services.AddTransient<InventoryPage>();
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

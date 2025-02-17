@@ -12,7 +12,7 @@ using GuitarStore.Services;
 
 namespace GuitarStore.ViewModels
 {
-    public class AddGuitarViewModel : BaseViewModel
+    public class AddAccessoryViewModel : BaseViewModel
     {
         private readonly DatabaseService _databaseService;
 
@@ -21,72 +21,62 @@ namespace GuitarStore.ViewModels
         public string Model { get; set; }
         public double Price { get; set; }
 
-        private string _selectedGuitarType;
-        public string SelectedGuitarType
+        private string _selectedAccessoryType;
+        public string SelectedAccessoryType
         {
-            get => _selectedGuitarType;
+            get => _selectedAccessoryType;
             set
             {
-                if (_selectedGuitarType != value)
+                if (_selectedAccessoryType != value)
                 {
-                    _selectedGuitarType = value;
+                    _selectedAccessoryType = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public ObservableCollection<string> GuitarTypes { get; } = new ObservableCollection<string>
+        public ObservableCollection<string> AccessoryTypes { get; } = new ObservableCollection<string>
         {
-            "Electric",
-            "Acoustic"
+            "Strings",
+            "Tuners",
+            "Picks",
+            "Stands",
+            "Straps",
+            "Cases",
+            "Pickups",
+            "Instrument Cables",
+            "Power Cables",
+            "Pedalboards"
         };
-        private string _numberOfStrings;
-        public string NumberOfStrings
-        {
-            get => _numberOfStrings;
-            set
-            {
-                if (_numberOfStrings != value)
-                {
-                    _numberOfStrings = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public ObservableCollection<string> StringNumberPicker { get; } = new ObservableCollection<string>
-        {
-            "6",
-            "7",
-            "8"
-        };
+
+
 
 
         public ICommand SaveCommand { get; }
 
-        public AddGuitarViewModel(DatabaseService databaseService)
+        public AddAccessoryViewModel(DatabaseService databaseService)
         {
             _databaseService = databaseService;
-            SaveCommand = new Command(async () => await SaveGuitarAsync());
+            SaveCommand = new Command(async () => await SaveAccessoryAsync());
         }
 
-        private async Task SaveGuitarAsync()
+        private async Task SaveAccessoryAsync()
         {
             if (string.IsNullOrWhiteSpace(Make) || string.IsNullOrWhiteSpace(Model))
             {
                 await Shell.Current.DisplayAlert("Error", "Make and Model are required.", "OK");
                 return;
             }
-            var newGuitar = new Guitar
+            var newAccessory = new Accessory
             {
                 PhotoPath = PhotoPath,
                 Make = Make,
                 Model = Model,
-                GuitarType = SelectedGuitarType,
-                NumberOfStrings = NumberOfStrings,
+                AccessoryType = SelectedAccessoryType,
                 Price = Price
             };
 
-            await _databaseService.AddGuitarAsync(newGuitar);
+            await _databaseService.AddAccessoryAsync(newAccessory);
 
             await Shell.Current.GoToAsync("..");
         }
@@ -99,5 +89,5 @@ namespace GuitarStore.ViewModels
         //}
 
     }
-    
+
 }
