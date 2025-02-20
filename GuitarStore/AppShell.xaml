@@ -4,34 +4,52 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:GuitarStore.Views"
+    xmlns:behaviors="clr-namespace:GuitarStore.Behaviors"
     Shell.BackgroundColor="LightGrey"
-    Shell.FlyoutBehavior="Flyout"
+    
     Title="GuitarStore">
 
+    <Shell.Behaviors>
+        <behaviors:FlyoutBehaviorAdjustment />
+    </Shell.Behaviors>
 
     <ShellContent 
-        Title="Inventory"
+        Title="Login"
+        Route="LoginPage" 
+        ContentTemplate="{DataTemplate views:LoginPage}" />
+    
+    <ShellContent 
+        Title="Home"
+        Route="HomePage" 
+        ContentTemplate="{DataTemplate views:HomePage}" />
+
+    <ShellContent 
+        Title="All Inventory"
         Route="InventoryPage" 
         ContentTemplate="{DataTemplate views:InventoryPage}" />
 
     <ShellContent
-        Title="Guitars"
+        Title="    - Guitars"
         ContentTemplate="{DataTemplate views:GuitarPage}"
         Route="GuitarPage" />
 
     <ShellContent 
-        Title="Amps" 
+        Title="    - Amps" 
         Route="AmpPage" 
         ContentTemplate="{DataTemplate views:AmpPage}" />
     
     <ShellContent 
-        Title="Pedals" 
+        Title="    - Pedals" 
         Route="PedalPage" 
         ContentTemplate="{DataTemplate views:PedalPage}" />
     
     <ShellContent 
-        Title="Accessories" 
+        Title="    - Accessories" 
         Route="AccessoryPage" 
         ContentTemplate="{DataTemplate views:AccessoryPage}" />
-    
+
+    <MenuItem
+        Text="Logout"
+        Clicked="OnLogoutClicked"
+        IconImageSource="logout_icon.png" />
 </Shell>

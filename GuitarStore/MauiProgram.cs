@@ -20,6 +20,9 @@ namespace GuitarStore
                 });
 
             builder.Services.AddSingleton<DatabaseService>();
+            builder.Services.AddSingleton<UserService>();
+            builder.Services.AddSingleton<AuthenticationService>();
+            
             builder.Services.AddTransient<GuitarViewModel>();
             builder.Services.AddTransient<GuitarPage>();
             builder.Services.AddTransient<AddGuitarPage>();
@@ -38,6 +41,11 @@ namespace GuitarStore
             builder.Services.AddTransient<AddAccessoryViewModel>();
             builder.Services.AddTransient<ProductViewModel>();
             builder.Services.AddTransient<InventoryPage>();
+            builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegisterPage>();
+            builder.Services.AddTransient<RegisterViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

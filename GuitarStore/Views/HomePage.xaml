@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:GuitarStore.ViewModels"
+             x:Class="GuitarStore.Views.HomePage"
+             Title="Home">
+
+    <ScrollView>
+    <VerticalStackLayout Padding="10" Spacing="15" BackgroundColor="GhostWhite">
+        <Image Source="logo.png" 
+               HeightRequest="450" 
+               WidthRequest="450"/>
+
+        <Label 
+            Text="{Binding WelcomeMessage}"
+            FontSize="24"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"/>
+        <Button Text="All Inventory" 
+                Clicked="OnInventoryClicked" 
+                WidthRequest="450" 
+                BackgroundColor="CornflowerBlue" 
+                FontSize="20"/>
+        <Button Text="Guitars" 
+                Clicked="OnGuitarsClicked" 
+                WidthRequest="450" 
+                BackgroundColor="CornflowerBlue" 
+                FontSize="20"/>
+        <Button Text="Amps" 
+                Clicked="OnAmpsClicked"
+                WidthRequest="450" 
+                BackgroundColor="CornflowerBlue" 
+                FontSize="20"/>
+        <Button Text="Pedals" 
+                Clicked="OnPedalsClicked" 
+                WidthRequest="450" 
+                BackgroundColor="CornflowerBlue" 
+                FontSize="20"/>
+        <Button Text="Accessories" 
+                Clicked="OnAccessoriesClicked" 
+                WidthRequest="450" 
+                BackgroundColor="CornflowerBlue" 
+                FontSize="20"/>
+            <VerticalStackLayout>
+                <Label Text="© GuitaRVA - 2025" 
+                       HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+        </ScrollView>
+
+    
+</ContentPage>

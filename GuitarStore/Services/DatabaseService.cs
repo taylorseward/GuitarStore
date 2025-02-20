@@ -31,6 +31,8 @@ namespace GuitarStore.Services
             await _database.CreateTableAsync<Amp>();
             await _database.CreateTableAsync<Pedal>();
             await _database.CreateTableAsync<Accessory>();
+
+            await _database.CreateTableAsync<User>();
         }
 
         // product
@@ -68,7 +70,10 @@ namespace GuitarStore.Services
 
         public async Task<List<Guitar>> GetGuitarAsync()
         {
-            return await _database.Table<Guitar>().ToListAsync();
+            var guitars = await _database.Table<Guitar>().ToListAsync();
+            var sortGuitars = new List<Guitar>();
+            sortGuitars.AddRange(guitars);
+            return sortGuitars.OrderBy(item => item.Make).ToList();
         }
         public async Task<Guitar> GetGuitarByIdAsync(int Id)
         {
@@ -100,7 +105,10 @@ namespace GuitarStore.Services
 
         public async Task<List<Amp>> GetAmpAsync()
         {
-            return await _database.Table<Amp>().ToListAsync();
+            var amps = await _database.Table<Amp>().ToListAsync();
+            var sortAmps = new List<Amp>();
+            sortAmps.AddRange(amps);
+            return sortAmps.OrderBy(item => item.Make).ToList();
         }
         public async Task<Amp> GetAmpByIdAsync(int Id)
         {
@@ -132,7 +140,10 @@ namespace GuitarStore.Services
 
         public async Task<List<Pedal>> GetPedalAsync()
         {
-            return await _database.Table<Pedal>().ToListAsync();
+            var pedals = await _database.Table<Pedal>().ToListAsync();
+            var sortPedals = new List<Pedal>();
+            sortPedals.AddRange(pedals);
+            return sortPedals.OrderBy(item => item.Make).ToList();
         }
         public async Task<Pedal> GetPedalByIdAsync(int Id)
         {
@@ -164,7 +175,10 @@ namespace GuitarStore.Services
 
         public async Task<List<Accessory>> GetAccessoryAsync()
         {
-            return await _database.Table<Accessory>().ToListAsync();
+            var accessories = await _database.Table<Accessory>().ToListAsync();
+            var sortAccessories = new List<Accessory>();
+            sortAccessories.AddRange(accessories);
+            return sortAccessories.OrderBy(item => item.Make).ToList();
         }
         public async Task<Accessory> GetAccessoryByIdAsync(int Id)
         {
@@ -208,6 +222,29 @@ namespace GuitarStore.Services
             allItems.AddRange(accessories);
 
             return allItems.OrderBy(item => item.Make).ToList();
+        }
+
+        // user
+
+        public Task<User> GetCurrentUserAsync()
+        {
+            var currentUserId = SessionManager.GetCurrentUserId();
+            if (currentUserId.HasValue)
+            {
+                return _database.Table<User>().Where(u => u.Id == currentUserId.Value).FirstOrDefaultAsync();
+            }
+            return Task.FromResult(UserService.Instance.CurrentUser);
+        }
+        public Task<User> GetUserAsync(string username, string password)
+        {
+            return _database.Table<User>().Where(u => u.Username == username && u.Password == password).FirstOrDefaultAsync();
+
+            
+        }
+
+        public Task<int> SaveUserAsync(User user)
+        {
+            return _database.InsertAsync(user);
         }
     }
 }

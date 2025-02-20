@@ -5,6 +5,12 @@
              x:Class="GuitarStore.Views.InventoryPage"
              Title="Inventory">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="ADD NEW" 
+         Clicked="OnAddInventoryClicked" 
+         Order="Primary"/>
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
     <StackLayout Padding="10">
 

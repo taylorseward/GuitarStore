@@ -89,8 +89,27 @@ public partial class InventoryPage : ContentPage
         _viewModel.SortProducts();
     }
 
-    //public async void OnAddGuitarClicked(object sender, EventArgs e)
-    //{
-    //    await Shell.Current.GoToAsync("AddGuitarPage");
-    //}
+    public async void OnAddInventoryClicked(object sender, EventArgs e)
+    {
+        var action = await DisplayActionSheet("Choose Department", "Cancel", null, "Add Guitar", "Add Amp", "Add Pedal", "Add Accessory");
+
+        switch (action)
+        {
+            case "Add Guitar":
+                await Shell.Current.GoToAsync(nameof(AddGuitarPage));
+                break;
+            case "Add Amp":
+                await Shell.Current.GoToAsync(nameof(AddAmpPage));
+                break;
+            case "Add Pedal":
+                await Shell.Current.GoToAsync(nameof(AddPedalPage));
+                break;
+            case "Add Accessory":
+                await Shell.Current.GoToAsync(nameof(AddAccessoryPage));
+                break;
+            default:
+                break;
+        }
+
+    }
 }
