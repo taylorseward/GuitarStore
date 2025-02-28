@@ -9,6 +9,8 @@ using GuitarStore.Models;
 using GuitarStore.Services;
 using CommunityToolkit.Mvvm.Input;
 using GuitarStore.Views;
+using Microsoft.Maui.Devices;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace GuitarStore.ViewModels
 {
@@ -17,6 +19,35 @@ namespace GuitarStore.ViewModels
         private readonly DatabaseService _databaseService;
 
         public ObservableCollection<Guitar> Guitars { get; set; } = new();
+
+        // page functionality
+        public ObservableCollection<Guitar> PaginatedGuitars { get; } = new();
+
+        // Items per page picker
+        public ObservableCollection<string> ItemsPerPageOptions { get; } = new() 
+        { 
+            "10", "20", "40", "All"
+        }; // Allow selecting 10, 20, 40, or all
+        private string _selectedItemsPerPage = "10"; // Default value is 10
+        public string SelectedItemsPerPage
+        {
+            get => _selectedItemsPerPage;
+            set
+            {
+                if (_selectedItemsPerPage != value)
+                {
+                    _selectedItemsPerPage = value;
+                    OnPropertyChanged();
+
+                    if (_selectedItemsPerPage == "All")
+                    {
+                        _selectedItemsPerPage = int.MaxValue.ToString();
+                    }
+                    UpdatePaginatedList(); // Update the displayed items when selection changes
+                }
+            }
+        }
+        // sort
         public ObservableCollection<string> SortOptions { get; } = new()
         {
             "Make (A-Z)",
@@ -26,7 +57,7 @@ namespace GuitarStore.ViewModels
             "Recently Added"
         };
 
-        private string _selectedSortOption;
+        private string _selectedSortOption = "Make (A-Z)";
         public string SelectedSortOption
         {
             get => _selectedSortOption;
@@ -40,6 +71,8 @@ namespace GuitarStore.ViewModels
                 }
             }
         }
+
+        // search
         public ObservableCollection<Guitar> SearchedGuitars { get; } = new();
         private string _searchQuery;
         public string SearchQuery
@@ -56,6 +89,9 @@ namespace GuitarStore.ViewModels
             }
         }
 
+
+
+        // commands
         public IAsyncRelayCommand LoadGuitarsCommand { get; }
         public IAsyncRelayCommand<Guitar> DeleteGuitarCommand { get; }
         public ICommand SaveGuitarCommand { get; }
@@ -83,7 +119,6 @@ namespace GuitarStore.ViewModels
             DeleteGuitarCommand = new AsyncRelayCommand<Guitar>(DeleteGuitarAsync);
             SaveGuitarCommand = new Command(async () => await SaveGuitarAsync());
             EditGuitarCommand = new AsyncRelayCommand<Guitar>(EditGuitarAsync);
-
         }
 
         private async Task LoadGuitarsAsync()
@@ -102,6 +137,9 @@ namespace GuitarStore.ViewModels
                 {
                     SearchedGuitars.Add(guitar);
                 }
+
+                SortGuitars();
+                UpdatePaginatedList();
             }
         }
 
@@ -154,6 +192,23 @@ namespace GuitarStore.ViewModels
             {
                 SearchedGuitars.Add(guitar);
             }
+
+            UpdatePaginatedList();
+        }
+
+        // paginated method
+
+        private void UpdatePaginatedList()
+        {
+            PaginatedGuitars.Clear();
+            var itemsToShow = _selectedItemsPerPage == "All"
+                ? SearchedGuitars.ToList()  // shows all items
+                : SearchedGuitars.Take(int.Parse(_selectedItemsPerPage)).ToList();
+            
+            foreach (var guitar in itemsToShow)
+            {
+                PaginatedGuitars.Add(guitar);
+            }
         }
 
         private async Task DeleteGuitarAsync(Guitar guitar)
@@ -162,6 +217,7 @@ namespace GuitarStore.ViewModels
             {
                 await _databaseService.DeleteGuitarAsync(guitar);
                 Guitars.Remove(guitar);
+                UpdatePaginatedList();
             }
         }
         private async Task SaveGuitarAsync()

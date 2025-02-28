@@ -15,7 +15,7 @@
 
     <ScrollView>
     <StackLayout Padding="10">
-    <Grid ColumnDefinitions="*,Auto,*">
+    <Grid ColumnDefinitions="4*,Auto,Auto,Auto,Auto">
         <Border Padding="5"
             StrokeThickness="2"
             StrokeShape="RoundRectangle 20, 20, 20, 20">
@@ -39,14 +39,29 @@
             ItemsSource="{Binding SortOptions}"
             SelectedItem="{Binding SelectedSortOption, Mode=TwoWay}"
             Margin="0,0,0,10"
-            SelectedIndexChanged="OnSortChanged"
             HorizontalOptions="Fill"
             Grid.Column="2"/>
         </Border>
+                
+        <Label Text="Items Per Page"
+           VerticalOptions="Center"
+           FontSize="16"
+           Grid.Column="3"
+           Margin="10,0"/>
+          <Border Padding="5"
+                  Grid.Column="4"
+                  StrokeThickness="2"
+                  StrokeShape="RoundRectangle 20, 20, 20, 20">
+          <Picker ItemsSource="{Binding ItemsPerPageOptions}"
+                  SelectedItem="{Binding SelectedItemsPerPage, Mode=TwoWay}"
+                  Margin="0,0,0,10"
+                  HorizontalOptions="Fill"
+                  Grid.Column="4"/>
+          </Border>
     </Grid>
 
     <CollectionView x:Name="GuitarCollectionView"
-                    ItemsSource="{Binding SearchedGuitars}" 
+                    ItemsSource="{Binding PaginatedGuitars}" 
                     SelectionMode="Single"
                     SelectionChanged="OnGuitarSelected">
             <CollectionView.ItemTemplate>
@@ -63,10 +78,10 @@
                         
                     
                     <StackLayout Grid.Column="1" Padding="10,0">
-                        
+
                             <HorizontalStackLayout Spacing="9">
-                                <Label  Text="{Binding Make}" FontSize="40"/>
-                                <Label  Text="{Binding Model}" FontSize="40"/>
+                                <Label  Text="{Binding Make}" FontSize="40"  />
+                                <Label  Text="{Binding Model}" FontSize="40" />
                             </HorizontalStackLayout>
                             <!--<Label  Text="{Binding GuitarType}" FontSize="30"/>
                             <Label Text="{Binding NumberOfStrings, StringFormat='{}{0} string'}" FontSize="30"/>-->

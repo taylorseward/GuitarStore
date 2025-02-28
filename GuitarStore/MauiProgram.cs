@@ -2,6 +2,7 @@
 using GuitarStore.ViewModels;
 using GuitarStore.Views;
 using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 
 
 namespace GuitarStore
@@ -13,6 +14,7 @@ namespace GuitarStore
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -22,7 +24,6 @@ namespace GuitarStore
             builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddSingleton<UserService>();
             builder.Services.AddSingleton<AuthenticationService>();
-            
             builder.Services.AddTransient<GuitarViewModel>();
             builder.Services.AddTransient<GuitarPage>();
             builder.Services.AddTransient<AddGuitarPage>();
@@ -46,6 +47,9 @@ namespace GuitarStore
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterPage>();
             builder.Services.AddTransient<RegisterViewModel>();
+           
+
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

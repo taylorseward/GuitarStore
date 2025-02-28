@@ -13,7 +13,7 @@
 
     <ScrollView>
         <StackLayout Padding="10">
-            <Grid ColumnDefinitions="*,Auto,*">
+            <Grid ColumnDefinitions="4*,Auto,*">
                 <Border Padding="5"
                         StrokeThickness="2"
                         StrokeShape="RoundRectangle 20, 20, 20, 20">

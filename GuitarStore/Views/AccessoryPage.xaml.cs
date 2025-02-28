@@ -42,7 +42,7 @@ public partial class AccessoryPage : ContentPage
                 // Navigate to edit 
                 await Shell.Current.GoToAsync($"AddAccessoryPage", true, new Dictionary<string, object>
                 {
-                    { "AccessoryId", selectedAccessory.Id }
+                    { "accessoryId", selectedAccessory.Id }
                 });
 
                 break;

@@ -42,7 +42,7 @@ public partial class PedalPage : ContentPage
                 // Navigate to edit 
                 await Shell.Current.GoToAsync($"AddPedalPage", true, new Dictionary<string, object>
                 {
-                    { "PedalId", selectedPedal.Id }
+                    { "pedalId", selectedPedal.Id }
                 });
 
                 break;

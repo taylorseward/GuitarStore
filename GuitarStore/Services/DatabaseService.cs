@@ -18,6 +18,7 @@ namespace GuitarStore.Services
         public DatabaseService()
         {
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "GuitarStore.db3");
+            Console.WriteLine($"Database path: {dbPath}");
             _database = new SQLiteAsyncConnection(dbPath);
             
 
@@ -26,13 +27,19 @@ namespace GuitarStore.Services
         }
         private async Task InitializeDatabase()
         {
-            await _database.CreateTableAsync<Product>();
-            await _database.CreateTableAsync<Guitar>();
-            await _database.CreateTableAsync<Amp>();
-            await _database.CreateTableAsync<Pedal>();
-            await _database.CreateTableAsync<Accessory>();
-
-            await _database.CreateTableAsync<User>();
+            try
+            {
+                await _database.CreateTableAsync<Product>();
+                await _database.CreateTableAsync<Guitar>();
+                await _database.CreateTableAsync<Amp>();
+                await _database.CreateTableAsync<Pedal>();
+                await _database.CreateTableAsync<Accessory>();
+                await _database.CreateTableAsync<User>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error initializing database: {ex.Message}");
+            }
         }
 
         // product

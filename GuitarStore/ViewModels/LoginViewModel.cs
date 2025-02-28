@@ -36,6 +36,12 @@ namespace GuitarStore.ViewModels
 
         private async void OnLogin()
         {
+            // checks for empty fields when logging in
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
+            {
+                await Shell.Current.DisplayAlert("Error", "Please enter both username and password.", "OK");
+                return;
+            }
             var user = await _databaseService.GetUserAsync(Username, Password);
             if (user != null)
             {
