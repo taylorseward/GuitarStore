@@ -28,7 +28,7 @@ namespace GuitarStore.ViewModels
         { 
             "10", "20", "40", "All"
         }; // Allow selecting 10, 20, 40, or all
-        private string _selectedItemsPerPage = "10"; // Default value is 10
+        private string _selectedItemsPerPage = "10"; // Default value
         public string SelectedItemsPerPage
         {
             get => _selectedItemsPerPage;

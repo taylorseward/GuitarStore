@@ -56,7 +56,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0" WidthRequest="220" HeightRequest="220"
-                                   Source="{Binding PhotoPath}" Aspect="AspectFill"/>
+                                   Source="{Binding PhotoPath, FallbackValue='placeholder.jpg'}" Aspect="AspectFill"/>
                         <StackLayout Grid.Column="1" Padding="10,0">
                             <HorizontalStackLayout Spacing="9">
                                 <Label  Text="{Binding Make}" FontSize="40"/>

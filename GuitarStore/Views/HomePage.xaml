@@ -3,50 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:GuitarStore.ViewModels"
              x:Class="GuitarStore.Views.HomePage"
-             Title="Home">
+             Title="Home"
+             >
 
-    <ScrollView>
-    <VerticalStackLayout Padding="10" Spacing="15" BackgroundColor="GhostWhite">
-        <Image Source="logo.png" 
+    <Grid>
+        <Image Source="libbyhill"
+               Aspect="AspectFill"
+               VerticalOptions="FillAndExpand"
+               HorizontalOptions="FillAndExpand"/>
+
+        <ScrollView>
+            <VerticalStackLayout Padding="10" Spacing="15" BackgroundColor="GhostWhite">
+                <Image Source="logo.png" 
                HeightRequest="450" 
                WidthRequest="450"/>
 
-        <Label 
+                <Label 
             Text="{Binding WelcomeMessage}"
             FontSize="24"
             VerticalTextAlignment="Center"
             HorizontalTextAlignment="Center"/>
-        <Button Text="All Inventory" 
+                <Button Text="All Inventory" 
                 Clicked="OnInventoryClicked" 
                 WidthRequest="450" 
                 BackgroundColor="CornflowerBlue" 
                 FontSize="20"/>
-        <Button Text="Guitars" 
+                <Button Text="Guitars" 
                 Clicked="OnGuitarsClicked" 
                 WidthRequest="450" 
                 BackgroundColor="CornflowerBlue" 
                 FontSize="20"/>
-        <Button Text="Amps" 
+                <Button Text="Amps" 
                 Clicked="OnAmpsClicked"
                 WidthRequest="450" 
                 BackgroundColor="CornflowerBlue" 
                 FontSize="20"/>
-        <Button Text="Pedals" 
+                <Button Text="Pedals" 
                 Clicked="OnPedalsClicked" 
                 WidthRequest="450" 
                 BackgroundColor="CornflowerBlue" 
                 FontSize="20"/>
-        <Button Text="Accessories" 
+                <Button Text="Accessories" 
                 Clicked="OnAccessoriesClicked" 
                 WidthRequest="450" 
                 BackgroundColor="CornflowerBlue" 
                 FontSize="20"/>
-            <VerticalStackLayout>
-                <Label Text="© GuitaRVA - 2025" 
+                <VerticalStackLayout>
+                    <Label Text="© GuitaRVA - 2025" 
                        HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
             </VerticalStackLayout>
-        </VerticalStackLayout>
         </ScrollView>
-
-    
+    </Grid>
 </ContentPage>

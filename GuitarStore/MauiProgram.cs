@@ -21,27 +21,41 @@ namespace GuitarStore
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            // Database
             builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddSingleton<UserService>();
             builder.Services.AddSingleton<AuthenticationService>();
+
+            // Guitar
             builder.Services.AddTransient<GuitarViewModel>();
             builder.Services.AddTransient<GuitarPage>();
             builder.Services.AddTransient<AddGuitarPage>();
             builder.Services.AddTransient<AddGuitarViewModel>();
+            builder.Services.AddTransient<EditGuitarPage>();
+
+            // Amp
             builder.Services.AddTransient<AmpViewModel>();
             builder.Services.AddTransient<AmpPage>();
             builder.Services.AddTransient<AddAmpPage>();
             builder.Services.AddTransient<AddAmpViewModel>();
+
+            // Pedals
             builder.Services.AddTransient<PedalViewModel>();
             builder.Services.AddTransient<PedalPage>();
             builder.Services.AddTransient<AddPedalPage>();
             builder.Services.AddTransient<AddPedalViewModel>();
+
+            // Accessories
             builder.Services.AddTransient<AccessoryViewModel>();
             builder.Services.AddTransient<AccessoryPage>();
             builder.Services.AddTransient<AddAccessoryPage>();
             builder.Services.AddTransient<AddAccessoryViewModel>();
+
+            // Inventory
             builder.Services.AddTransient<ProductViewModel>();
             builder.Services.AddTransient<InventoryPage>();
+
+            // Home / Login / Register
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<LoginViewModel>();

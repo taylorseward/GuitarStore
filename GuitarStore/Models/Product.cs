@@ -16,8 +16,8 @@ namespace GuitarStore.Models
         public string? Make {  get; set; }
         public string? Model { get; set; }
         public double Price { get; set; }
-
         public string? ProductType { get; set; }
+        //public int AmountInInventory { get; set; }
     }
 
     public class Guitar : Product

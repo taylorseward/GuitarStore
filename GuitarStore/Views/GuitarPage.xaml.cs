@@ -23,8 +23,6 @@ public partial class GuitarPage : ContentPage
         
     }
 
-
-
     private async void OnGuitarSelected(object sender, SelectionChangedEventArgs e)
     {
         var selectedGuitar = e.CurrentSelection.FirstOrDefault() as Guitar;
@@ -40,7 +38,7 @@ public partial class GuitarPage : ContentPage
         {
             case "Edit":
                 // Navigate to AddGuitarPage for editing
-                await Shell.Current.GoToAsync($"AddGuitarPage", true, new Dictionary<string, object>
+                await Shell.Current.GoToAsync($"EditGuitarPage", true, new Dictionary<string, object>
                 {
                     { "guitarId", selectedGuitar.Id }
                 });

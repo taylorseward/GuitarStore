@@ -12,7 +12,6 @@ namespace GuitarStore.Services
 {
     public class DatabaseService
     {
-
         private readonly SQLiteAsyncConnection _database;
 
         public DatabaseService()
@@ -20,10 +19,7 @@ namespace GuitarStore.Services
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "GuitarStore.db3");
             Console.WriteLine($"Database path: {dbPath}");
             _database = new SQLiteAsyncConnection(dbPath);
-            
-
-            Task.Run(async () => await InitializeDatabase());
-
+            InitializeDatabase().ConfigureAwait(false);
         }
         private async Task InitializeDatabase()
         {

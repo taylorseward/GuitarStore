@@ -4,7 +4,7 @@
              xmlns:viewmodels="clr-namespace:GuitarStore.ViewModels"
              x:Class="GuitarStore.Views.LoginPage"
              Title="Login"
-             >
+             BackgroundImageSource="libbyhill.jpg">
 
     <ScrollView >
     <VerticalStackLayout Padding="10" Spacing="15" BackgroundColor="GhostWhite">
